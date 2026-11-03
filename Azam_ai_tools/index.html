@@ -8,116 +8,86 @@
 <script src="https://cdn.jsdelivr.net/npm/tesseract.js@4/dist/tesseract.min.js"></script>
 <style>
 body{font-family:Arial;background:#f3f5fb;margin:0;padding:10px}
-.ad-box{background:#fff;border-radius:12px;padding:12px;text-align:center;margin-bottom:12px;border:1px solid #e5e7eb}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.card{background:#fff;border-radius:16px;padding:18px 10px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.06)}
-.card b{display:block;margin:8px 0 12px;font-size:14px}
-.btn{background:#4f46e5;color:#fff;border:0;padding:10px;width:100%;border-radius:10px;font-weight:700;cursor:pointer}
-.modal{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.7);z-index:99;padding:15px;overflow:auto}
-.modal-content{background:#fff;border-radius:16px;padding:18px;max-width:500px;margin:20px auto}
-input,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin:8px 0;box-sizing:border-box}
-.action{background:#0ea5e9;color:#fff;border:0;padding:12px;border-radius:10px;width:100%;font-weight:700;margin-top:8px;cursor:pointer}
-.close{float:right;font-size:26px;cursor:pointer}
-#output{margin-top:12px;background:#f8fafc;padding:12px;border-radius:10px;word-break:break-word}
+.ad{background:#fff;padding:12px;border-radius:12px;text-align:center;margin-bottom:12px;border:1px solid #e5e7eb}
+.card{background:#fff;padding:16px;border-radius:16px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:12px}
+.card b{display:block;margin:8px 0 10px}
+.btn{background:#4f46e5;color:#fff;border:0;padding:12px;width:100%;border-radius:10px;font-weight:700;cursor:pointer}
+.tool{ display:none; background:#f8fafc; border:2px solid #4f46e5; border-radius:12px; padding:12px; margin-top:12px; text-align:left}
+input,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;margin:6px 0;box-sizing:border-box}
+.go{background:#0ea5e9;color:#fff;border:0;padding:12px;border-radius:10px;width:100%;font-weight:700;cursor:pointer;margin-top:6px}
+.out{margin-top:10px;background:#fff;padding:10px;border-radius:10px;word-break:break-word}
 </style>
 </head>
 <body>
 
-<div class="ad-box"><b>AZAM AI TOOLS - Ad</b><br>ca-pub-2668895199577995<br>
+<div class="ad">
+<b>Ad 1 - Top</b><br>
+ca-pub-2668895199577995<br>
 <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2668895199577995" data-ad-slot="1234567890" data-ad-format="auto"></ins>
 <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
 </div>
 
-<div class="grid">
-<div class="card">📝<b>1 Image to Text</b><button class="btn" onclick="openTool(1)">Open</button></div>
-<div class="card">✂️<b>2 BG Remover</b><button class="btn" onclick="openTool(2)">Open</button></div>
-<div class="card">🤖<b>3 AI Chatbot</b><button class="btn" onclick="openTool(3)">Open</button></div>
-<div class="card">🔊<b>4 Text to Speech</b><button class="btn" onclick="openTool(4)">Open</button></div>
-<div class="card">🎙️<b>5 Speech to Text</b><button class="btn" onclick="openTool(5)">Open</button></div>
-<div class="card">🎨<b>6 AI Image Gen</b><button class="btn" onclick="openTool(6)">Open</button></div>
-<div class="card">💎<b>7 Logo Maker</b><button class="btn" onclick="openTool(7)">Open</button></div>
-<div class="card">📄<b>8 Resume Builder</b><button class="btn" onclick="openTool(8)">Open</button></div>
-<div class="card">🔳<b>9 QR Generator</b><button class="btn" onclick="openTool(9)">Open</button></div>
-<div class="card">🖼️<b>10 YT Thumbnail</b><button class="btn" onclick="openTool(10)">Open</button></div>
-</div>
+<!-- 1 -->
+<div class="card">📝<b>1 Image to Text</b><button class="btn" onclick="document.getElementById('t1').style.display='block'">Open</button>
+<div id="t1" class="tool"><input type="file" id="f1" accept="image/*"><button class="go" onclick="doOCR()">Extract Text</button><div id="o1" class="out"></div></div></div>
 
-<div id="toolModal" class="modal">
-<div class="modal-content">
-<span class="close" onclick="closeModal()">×</span>
-<h3 id="toolTitle">Tool</h3>
-<div id="toolBody"></div>
-<div id="output"></div>
-</div>
+<!-- 2 -->
+<div class="card">✂️<b>2 BG Remover</b><button class="btn" onclick="document.getElementById('t2').style.display='block'">Open</button>
+<div id="t2" class="tool"><input type="file" id="f2" accept="image/*" onchange="doBG()"><img id="p2" style="max-width:100%;border-radius:10px;display:none;margin-top:8px"><div id="o2" class="out">Image select karo, preview ayega</div></div></div>
+
+<!-- 3 -->
+<div class="card">🤖<b>3 AI Chatbot</b><button class="btn" onclick="document.getElementById('t3').style.display='block'">Open</button>
+<div id="t3" class="tool"><textarea id="q3" placeholder="Sawal likho..."></textarea><button class="go" onclick="document.getElementById('o3').innerHTML='<b>Azam AI:</b> Aapne pucha - '+document.getElementById('q3').value">Ask AI</button><div id="o3" class="out"></div></div></div>
+
+<!-- 4 -->
+<div class="card">🔊<b>4 Text to Speech</b><button class="btn" onclick="document.getElementById('t4').style.display='block'">Open</button>
+<div id="t4" class="tool"><textarea id="txt4" placeholder="Jo bolwana hai likho"></textarea><button class="go" onclick="let t=document.getElementById('txt4').value; speechSynthesis.speak(new SpeechSynthesisUtterance(t)); document.getElementById('o4').innerHTML='🔊 Bol raha hu: '+t">Speak Now</button><div id="o4" class="out"></div></div></div>
+
+<!-- 5 -->
+<div class="card">🎙️<b>5 Speech to Text</b><button class="btn" onclick="document.getElementById('t5').style.display='block'">Open</button>
+<div id="t5" class="tool"><button class="go" onclick="doSTT()">🎙️ Mic Start</button><div id="o5" class="out">Mic permission dena padega</div></div></div>
+
+<!-- 6 -->
+<div class="card">🎨<b>6 AI Image Gen</b><button class="btn" onclick="document.getElementById('t6').style.display='block'">Open</button>
+<div id="t6" class="tool"><input id="pr6" placeholder="Ex: Cute cat"><button class="go" onclick="let s=Math.floor(Math.random()*9999); document.getElementById('o6').innerHTML='<img src=https://picsum.photos/seed/'+s+'/400/300 style=width:100%;border-radius:10px>'">Generate</button><div id="o6" class="out"></div></div></div>
+
+<!-- 7 -->
+<div class="card">💎<b>7 Logo Maker</b><button class="btn" onclick="document.getElementById('t7').style.display='block'">Open</button>
+<div id="t7" class="tool"><input id="lo7" placeholder="Company Name"><button class="go" onclick="let n=document.getElementById('lo7').value||'AZAM'; document.getElementById('o7').innerHTML='<div style=background:linear-gradient(135deg,#4f46e5,#0ea5e9);color:#fff;padding:30px;border-radius:12px;text-align:center><h1>'+n+'</h1></div>'">Create Logo</button><div id="o7" class="out"></div></div></div>
+
+<!-- 8 -->
+<div class="card">📄<b>8 Resume Builder</b><button class="btn" onclick="document.getElementById('t8').style.display='block'">Open</button>
+<div id="t8" class="tool"><input id="n8" placeholder="Your Name"><input id="sk8" placeholder="Skills"><button class="go" onclick="document.getElementById('o8').innerHTML='<b>'+document.getElementById('n8').value+'</b><br>'+document.getElementById('sk8').value+'<br><hr>Generated by AZAM AI TOOLS'">Generate Resume</button><div id="o8" class="out"></div></div></div>
+
+<!-- 9 -->
+<div class="card">🔳<b>9 QR Generator</b><button class="btn" onclick="document.getElementById('t9').style.display='block'">Open</button>
+<div id="t9" class="tool"><input id="qr9" placeholder="Link ya Text"><button class="go" onclick="let d=document.getElementById('qr9').value; document.getElementById('o9').innerHTML='<img src=https://api.qrserver.com/v1/create-qr-code/?size=300x300&data='+encodeURIComponent(d)+' style=width:100%;max-width:300px>'">Generate QR</button><div id="o9" class="out"></div></div></div>
+
+<!-- 10 -->
+<div class="card">🖼️<b>10 YT Thumbnail</b><button class="btn" onclick="document.getElementById('t10').style.display='block'">Open</button>
+<div id="t10" class="tool"><input id="yt10" placeholder="YouTube Link"><button class="go" onclick="let l=document.getElementById('yt10').value; let v=''; try{v=new URL(l).searchParams.get('v')}catch(e){v=l.split('/').pop()} document.getElementById('o10').innerHTML='<img src=https://img.youtube.com/vi/'+v+'/maxresdefault.jpg style=width:100%;border-radius:10px><br>Long press karke save karo'">Get Thumbnail</button><div id="o10" class="out"></div></div></div>
+
+<div class="ad">
+<b>Ad 2 - Bottom</b><br>
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2668895199577995" data-ad-slot="0987654321" data-ad-format="auto"></ins>
+<script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
 </div>
 
 <script>
-function openTool(id){
-document.getElementById('toolModal').style.display='block';
-document.getElementById('output').innerHTML='';
-const titles={1:'Image to Text',2:'BG Remover',3:'AI Chatbot',4:'Text to Speech',5:'Speech to Text',6:'AI Image Gen',7:'Logo Maker',8:'Resume Builder',9:'QR Generator',10:'YT Thumbnail'};
-document.getElementById('toolTitle').innerText=titles[id];
-let body='';
-if(id==1) body='<input type=file id=imgIn accept=image/*><button class=action onclick=doOCR()>Extract Text</button>';
-if(id==2) body='<input type=file id=bgIn accept=image/*><button class=action onclick=doBG()>Load Image</button><br><img id=bgPreview style=max-width:100%;margin-top:10px;border-radius:10px;display:none>';
-if(id==3) body='<textarea id=chatQ placeholder=Sawal likho...></textarea><button class=action onclick=doChat()>Ask AI</button>';
-if(id==4) body='<textarea id=ttsText placeholder=Yaha likho jo bolwana hai...></textarea><button class=action onclick=doTTS()>🔊 Speak Now</button>';
-if(id==5) body='<button class=action onclick=doSTT()>🎙️ Start Listening</button><p style=font-size:12px>Mic permission dena padega</p>';
-if(id==6) body='<input id=imgPrompt placeholder=Ex: Cute cat astronaut><button class=action onclick=doImgGen()>Generate Image</button>';
-if(id==7) body='<input id=logoText placeholder=Company Name - Ex: AZAM><button class=action onclick=doLogo()>Create Logo</button>';
-if(id==8) body='<input id=rName placeholder=Your Name><input id=rSkill placeholder=Skills><button class=action onclick=doResume()>Generate Resume</button>';
-if(id==9) body='<input id=qrData placeholder=Link ya Text likho><button class=action onclick=doQR()>Generate QR</button>';
-if(id==10) body='<input id=ytLink placeholder=YouTube Link paste karo><button class=action onclick=doYT()>Get Thumbnails</button>';
-document.getElementById('toolBody').innerHTML=body;
-}
-function closeModal(){document.getElementById('toolModal').style.display='none';speechSynthesis.cancel();}
 async function doOCR(){
-const file=document.getElementById('imgIn').files[0]; if(!file) return alert('Image select karo');
-document.getElementById('output').innerHTML='⏳ Text nikal raha hu... 10 sec lagega';
-const {data:{text}} = await Tesseract.recognize(file,'eng+hin');
-document.getElementById('output').innerHTML='<b>Result:</b><br>'+text.replace(/\n/g,'<br>');
+let file=document.getElementById('f1').files[0]; if(!file) return alert('Image select karo');
+document.getElementById('o1').innerHTML='⏳ Text nikal raha hu...';
+let {data:{text}} = await Tesseract.recognize(file,'eng+hin');
+document.getElementById('o1').innerHTML=text.replace(/\n/g,'<br>');
 }
 function doBG(){
-const file=document.getElementById('bgIn').files[0]; if(!file) return alert('Image select karo');
-const img=document.getElementById('bgPreview'); img.style.display='block'; img.src=URL.createObjectURL(file);
-document.getElementById('output').innerHTML='✅ Image Loaded! Long press karke save kar lo';
-}
-function doChat(){
-const q=document.getElementById('chatQ').value;
-document.getElementById('output').innerHTML='<b>Aap:</b> '+q+'<br><br><b>Azam AI:</b> Ye aapka sawal hai - "'+q+'". Iska jawab main jald dunga! (Full AI jald ayega)';
-}
-function doTTS(){
-const t=document.getElementById('ttsText').value; if(!t) return alert('Text likho');
-const u=new SpeechSynthesisUtterance(t); u.lang='hi-IN'; speechSynthesis.speak(u);
-document.getElementById('output').innerHTML='🔊 Bol raha hu: '+t;
+let file=document.getElementById('f2').files[0]; let img=document.getElementById('p2'); img.style.display='block'; img.src=URL.createObjectURL(file); document.getElementById('o2').innerHTML='✅ Loaded! Long press karke save karo';
 }
 function doSTT(){
-const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-if(!SR) return alert('Browser support nahi karta');
-const rec=new SR(); rec.lang='hi-IN'; rec.start();
-document.getElementById('output').innerHTML='🎙️ Sun raha hu... bolo';
-rec.onresult=e=>{document.getElementById('output').innerHTML='<b>Aapne bola:</b> '+e.results[0][0].transcript};
-}
-function doImgGen(){
-const p=document.getElementById('imgPrompt').value||'AI'; const seed=Math.floor(Math.random()*9999);
-document.getElementById('output').innerHTML='<img src=https://picsum.photos/seed/'+seed+'/400/300 style=width:100%;border-radius:12px><br><b>Prompt:</b> '+p;
-}
-function doLogo(){
-const n=document.getElementById('logoText').value||'AZAM';
-document.getElementById('output').innerHTML='<div style=background:linear-gradient(135deg,#4f46e5,#0ea5e9);color:white;padding:40px;border-radius:16px;text-align:center><h1 style=margin:0;font-size:36px>'+n+'</h1><p>AI TOOLS</p></div>';
-}
-function doResume(){
-const n=document.getElementById('rName').value||'Azam Khan'; const s=document.getElementById('rSkill').value||'AI Tools Developer';
-document.getElementById('output').innerHTML='<div style=border:1px solid #ddd;padding:15px;border-radius:10px><h3 style=margin:0>'+n+'</h3><p>'+s+'</p><hr><p>Generated by AZAM AI TOOLS</p><p>Contact: azam@example.com</p></div>';
-}
-function doQR(){
-const d=document.getElementById('qrData').value; if(!d) return alert('Text likho');
-document.getElementById('output').innerHTML='<img src=https://api.qrserver.com/v1/create-qr-code/?size=300x300&data='+encodeURIComponent(d)+' style=width:100%;max-width:300px;border-radius:12px><br><b>QR Ready! Long press to save</b>';
-}
-function doYT(){
-let link=document.getElementById('ytLink').value; if(!link) return alert('Link daalo');
-let vid=''; try{vid=new URL(link).searchParams.get('v')}catch(e){vid=link.split('/').pop().split('?')[0]} 
-if(!vid) vid=link;
-document.getElementById('output').innerHTML='<img src=https://img.youtube.com/vi/'+vid+'/maxresdefault.jpg style=width:100%;border-radius:12px><br><br><img src=https://img.youtube.com/vi/'+vid+'/hqdefault.jpg style=width:100%;border-radius:12px><br><b>Long press karke thumbnail save karo!</b>';
+let SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+if(!SR) return alert('Chrome me kholo');
+let r=new SR(); r.lang='hi-IN'; r.start(); document.getElementById('o5').innerHTML='🎙️ Sun raha hu... bolo';
+r.onresult=e=>{document.getElementById('o5').innerHTML=e.results[0][0].transcript}
 }
 </script>
 </body>
