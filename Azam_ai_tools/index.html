@@ -1,4 +1,8 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>body{background:#eef2ff;padding:10px;font-family:Arial}.card{background:#fff;padding:15px;border-radius:14px;margin-bottom:10px}summary{background:#4f46e5;color:#fff;padding:12px;border-radius:10px;font-weight:700;cursor:pointer;list-style:none}</style></head><body>
-<div class="card">Test 1<details><summary>👉 Open - Click karo</summary><p>Khul gaya! Ye Instagram me bhi khulta hai!</p></details></div>
-<div class="card">Test 2<details><summary>👉 Open - Click karo</summary><p>Ye bhi khul gaya!</p></details></div>
-</body></html>
+<script>
+function openTool(name){
+var box=document.createElement('div');
+box.style='position:fixed;top:10%;left:5%;right:5%;background:white;padding:20px;border-radius:15px;z-index:9999;box-shadow:0 0 20px black';
+box.innerHTML='<h3>'+name+' - Khul Gaya ✅</h3><input placeholder="Yahan likho" style="width:100%;padding:10px"><br><br><button onclick="alert(\'Ho Gaya! ✅\')" style="background:blue;color:white;padding:10px;width:100%;border:0;border-radius:8px">Generate / Run</button><br><br><button onclick="this.parentElement.remove()" style="background:red;color:white;padding:10px;width:100%;border:0;border-radius:8px">Close ✖</button>';
+document.body.appendChild(box);
+}
+</script>
