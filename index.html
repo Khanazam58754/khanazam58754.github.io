@@ -1,1 +1,60 @@
-<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="refresh" content="0; url=./Azam_ai_tools/"><title>Loading</title></head><body>Loading... <a href="./Azam_ai_tools/">Click here if not redirect</a></body></html>
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI UNIVERSE - One Platform</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+body{background:#070312;color:white;text-align:center}
+header{padding:20px;font-size:28px;font-weight:bold;background:linear-gradient(90deg,#7c3aed,#06b6d4);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero{padding:40px 20px}
+.hero h1{font-size:42px;line-height:1.2}
+.hero h1 span{color:#a855f7}
+.hero p{margin:15px 0;color:#cbd5e1}
+.robot{background:#1e1b4b;border:2px solid #7c3aed;border-radius:20px;padding:20px;margin:20px}
+.btn{display:block;width:90%;max-width:400px;margin:12px auto;padding:16px;border:none;border-radius:15px;font-size:18px;font-weight:bold;color:white;cursor:pointer}
+.purple{background:#7c3aed}.blue{background:#2563eb}.pink{background:#db2777}.green{background:#059669}
+.voice{background:linear-gradient(90deg,#f59e0b,#ef4444);font-size:20px}
+input{width:90%;max-width:400px;padding:14px;border-radius:12px;border:none;margin-top:10px}
+#output{margin:20px;padding:20px;background:#111827;border-radius:15px;min-height:80px}
+</style>
+</head>
+<body>
+<header>🌌 AI UNIVERSE</header>
+<div class="hero">
+<h1>Duniya ki Pehli Website<br><span>Jo Tumse Baat Karegi</span></h1>
+<p>One Platform - Sab Kuch Ek Jagah</p>
+<div class="robot">
+🤖 <b>AI UNIVERSE:</b><br>
+<span id="robotText">Hello! Main tumhari AI hoon. Kaise madad kar sakta hoon?</span>
+</div>
+<input id="prompt" placeholder="Yahan likho... jaise - Ek sher ki photo banao">
+<button class="btn voice" onclick="speak()">🎙️ VOICE - Bol Ke Chalao</button>
+<button class="btn purple" onclick="make('Photo')">🖼️ AI Photo Generator</button>
+<button class="btn blue" onclick="make('Video')">🎬 AI Video Generator</button>
+<button class="btn pink" onclick="make('Music')">🎵 AI Music Generator</button>
+<button class="btn green" onclick="make('Story')">📖 AI Story Writer</button>
+<div id="output">Yahan tumhara Result aayega...</div>
+<p style="margin-top:20px;color:#94a3b8">Made By AI UNIVERSE • Future 2030</p>
+</div>
+<script>
+function make(type){
+let p=document.getElementById('prompt').value||'Ek sundar duniya';
+document.getElementById('robotText').innerText='Haan! Main tumhare liye '+type+' bana raha hoon...';
+document.getElementById('output').innerHTML='<h3>✅ '+type+' Ban Gaya!</h3><p>Tumne likha: '+p+'</p><p>AI UNIVERSE ne tumhara '+type+' bana diya hai. Ye Demo Version hai, Full Version me yahan Real Photo/Video aayega.</p>';
+let msg=new SpeechSynthesisUtterance('Ho gaya! Tumhara '+type+' ban gaya hai');
+speechSynthesis.speak(msg);
+}
+function speak(){
+document.getElementById('robotText').innerText='Sun raha hoon... Bolo kya banau?';
+let r=new (window.SpeechRecognition||window.webkitSpeechRecognition)();
+r.lang='hi-IN'; r.start();
+r.onresult=function(e){
+document.getElementById('prompt').value=e.results[0][0].transcript;
+make('Photo');
+}
+}
+</script>
+</body>
+</html>
